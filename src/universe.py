@@ -86,9 +86,11 @@ class Universe():
         # if an edge is in view range
         if self.edge_behaviour == "avoid" and (np.abs(boid.pos) > self.canvas.size - self.view_dist).any():
             for i, (coord, lower, upper) in enumerate(zip(boid.pos, -self.canvas.size, self.canvas.size)):
-                if (diff := coord - lower) < self.view_dist:
+                diff = coord - lower
+                if diff < self.view_dist:
                     avoid_walls[i] += np.abs(1 / diff)
-                if (diff := upper - coord) < self.view_dist:
+                diff = upper - coord
+                if diff  < self.view_dist:
                     avoid_walls[i] -= np.abs(1 / diff)
 
         # sum them up and if its not zero return it
